@@ -3,6 +3,13 @@ console.log('Express Tutorial')
 const http = require("http");
 const PORT = 3000;
 
+//readFileSync is because it's invoked outside the server creation, and they're ready to be used: they won't get read with every coming request
+const { readFileSync } = require("fs");
+
+//get all files
+const homePage = readFileSync("./index.html");
+const aboutPage = readFileSync("./about.html");
+
 const server = http.createServer((req, res) => {
     //do server stuff
     const url = req.url;
@@ -10,12 +17,12 @@ const server = http.createServer((req, res) => {
     if (url == "/") {
         //if home page
         res.writeHead(200, {"content-type": "text/html"})
-        res.write("<h1>Home Page</h1><p>Go to <a href='/about'>about page</a></p><p>Go to <a href='/qwertyuiop'>non-existing page</a></p>");
+        res.write(homePage);
         res.end();
     } else if (url == "/about") {
         //if about page
         res.writeHead(200, {"content-type": "text/html"})
-        res.write("<h1>About This Website</h1><p>Go back to <a href='/'>home</a></p><p>Go to <a href='/qwertyuiop'>non-existing page</a></p>");
+        res.write(aboutPage);
         res.end();
     } else {
         //if not found
