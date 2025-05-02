@@ -16,7 +16,6 @@ app.use(express.json());
 
 //routers
 app.use("/api/people", people)
-
 app.use("/login", auth)
 
 app.listen(PORT, () => {
