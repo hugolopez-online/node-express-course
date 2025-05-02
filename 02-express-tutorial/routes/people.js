@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
+let { people } = require("../data");
 
-app.get("/api/people", (req, res) => {
+router.get("/", (req, res) => {
     return res.status(200).json({success: true, data: people})
 });
 
-app.post("/api/people", (req, res) => {
+router.post("/", (req, res) => {
     const {name} = req.body;
     if (!name) {
         return res.status(400).json({success: false, msg: "please provide name value"})
@@ -13,7 +14,7 @@ app.post("/api/people", (req, res) => {
     return res.status(201).json({success: true, person: name});
 });
 
-app.post("/api/people/postman", (req, res) => {
+router.post("/postman", (req, res) => {
     const {name} = req.body;
     if (!name) {
         return res.status(400).json({success: false, msg: "please provide name value"})
@@ -21,7 +22,7 @@ app.post("/api/people/postman", (req, res) => {
     return res.status(201).json({success: true, data: [...people, name]})
 });
 
-app.put("/api/people/:id", (req, res) => {
+router.put("/:id", (req, res) => {
     const {id} = req.params;
     const {name} = req.body;
     const person = people.find((person) => person.id == Number(id));
@@ -40,7 +41,7 @@ app.put("/api/people/:id", (req, res) => {
     return res.status(200).json({success: true, data: newPeople})
 });
 
-app.delete("/api/people/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
     const person = people.find((person) => person.id == Number(req.params.id));
 
     if (!person) {
@@ -53,3 +54,5 @@ app.delete("/api/people/:id", (req, res) => {
 
     return res.status(200).json({success: true, data: newPeople})
 });
+
+module.exports = router;
