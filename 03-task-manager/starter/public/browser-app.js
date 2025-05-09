@@ -8,8 +8,12 @@ const showTasks = async () => {
     loadingDOM.style.visibility = "visible";
     try {
         const {
-            data: { tasks },
+            data: {
+                data: { tasks },
+            },
         } = await axios.get("/api/v1/tasks");
+        console.log(tasks);
+
         if (tasks.length < 1) {
             tasksDOM.innerHTML =
                 '<h5 class="empty-list">No tasks in your list</h5>';
@@ -43,6 +47,7 @@ const showTasks = async () => {
     } catch (error) {
         tasksDOM.innerHTML =
             '<h5 class="empty-list">There was an error, please try later....</h5>';
+        console.error(error);
     }
     loadingDOM.style.visibility = "hidden";
 };
