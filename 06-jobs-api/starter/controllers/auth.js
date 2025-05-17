@@ -14,7 +14,7 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-    res.send("login user");
+    res.send("Login user route");
 };
 
 module.exports = { register, login };
